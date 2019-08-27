@@ -1,0 +1,193 @@
+﻿<UserControl
+    x:Class="NotepadUWP.TabContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="1080"
+    d:DesignWidth="1920">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!--CommandBar Left-->
+        <CommandBar DefaultLabelPosition="Right" IsOpen="False" HorizontalAlignment="Left" Background="{ThemeResource SystemChromeLowColor}" OverflowButtonVisibility="Collapsed">
+            <AppBarButton x:Name="AppBarUndoButton" Icon="Undo" LabelPosition="Collapsed" Width="48" Click="AppBarUndoButtonClicked"/>
+            <AppBarButton x:Name="AppBarRedoButton" Icon="Redo" LabelPosition="Collapsed" Width="48" Click="AppBarRedoButtonClicked"/>
+            <AppBarSeparator/>
+            <AppBarButton x:Name="AppBarSaveButton" Icon="Save" LabelPosition="Collapsed" Width="35" Click="AppBarSaveButtonClicked"/>
+                <AppBarButton LabelPosition="Collapsed" Width="18" Margin="-3,0,3,0">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE70D;"/>
+                </AppBarButton.Icon>
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="AppBarSaveAsButton" x:Uid="AppBarSaveAsButton" Text="另存为..." Click="AppBarSaveAsButtonClicked">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xE792;"/>
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton x:Name="AppBarOpenFileButton" x:Uid="AppBarOpenFileButton" Icon="OpenFile" Label="打开..." Click="AppBarOpenFileButtonClicked"/>
+            <AppBarButton x:Name="AppBarNewFileButton" x:Uid="AppBarNewFileButton" Icon="Add" Label="新建" Click="AppBarNewFileButtonClicked"/>
+            <AppBarSeparator/>
+            <AppBarButton x:Name="AppBarCopyButton" x:Uid="AppBarCopyButton" Icon="Copy" LabelPosition="Collapsed" Width="48" Click="AppBarCopyButtonClicked"/>
+            <AppBarButton x:Name="AppBarCutButton" x:Uid="AppBarCutButton" Icon="Cut" LabelPosition="Collapsed" Width="48" Click="AppBarCutButtonClicked"/>
+            <AppBarButton x:Name="AppBarPasteButton" x:Uid="AppBarPasteButton" Icon="Paste" LabelPosition="Collapsed" Width="48" Click="AppBarPasteButtonClicked"/>
+            <AppBarButton x:Name="AppBarSelectAllButton" x:Uid="AppBarSelectAllButton" Icon="SelectAll" Label="全选" Click="AppBarSelectAllButtonClicked"/>
+            <AppBarButton x:Name="AppBarAddButton" x:Uid="AppBarAddButton" Icon="Add" Label="插入">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="AppBarAddDateButton" x:Uid="AppBarAddDateButton" Text="日期" Click="AppBarAddDateButtonClicked"/>
+                        <MenuFlyoutItem x:Name="AppBarAddTimeButton" x:Uid="AppBarAddTimeButton"  Text="时间" Click="AppBarAddTimeButtonClicked"/>
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton x:Name="AppBarFindButton" x:Uid="AppBarFindButton" Icon="Find" Label="查找" Click="AppBarFindButtonClicked"/>
+            <AppBarButton x:Name="AppBarWebSearchButton" x:Uid="AppBarWebSearchButton" Label="搜索" Click="AppBarWebSearchButtonClicked">
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xF6FA;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
+            
+            <AppBarButton Label="Debug" Click="DebugButtonClicked" Visibility="Collapsed"/>
+
+        </CommandBar>
+        
+        <!--CommandBar Right-->
+        <CommandBar HorizontalAlignment="Right" DefaultLabelPosition="Right" Background="{ThemeResource SystemChromeLowColor}">
+            <AppBarButton x:Name="AppBarShareButton" Icon="Share" LabelPosition="Collapsed" Width="48" Click="AppBarShareButtonClicked">
+                
+            </AppBarButton>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Name="AppBarHelpButton" x:Uid="AppBarHelpButton" Icon="Help" Label="查看帮助"/>
+                <AppBarButton x:Name="AppBarSettingButton" x:Uid="AppBarSettingButton" Icon="Setting" Label="设置" Click="OpenSetting"/>
+
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+        
+        <!--FindBar-->
+        <Grid x:Name="FindBar" Grid.Row="1" Background="{ThemeResource SystemChromeMediumColor}" Visibility="Collapsed">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="FindBarTopLeftTextBlock" x:Uid="FindBarTopLeftTextBlock" Text="在文档里查找" Grid.Column="0" Margin="10 0 10 0" VerticalAlignment="Center" FontSize="13"/>
+            
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <TextBox x:Name="FindBarInputTextBox" x:Uid="FindBarInputTextBox" PlaceholderText="输入要寻找的文本" Width="320" Background="White" Margin="0 5 0 5" BorderThickness="1" TextChanged="FindBarInputTextBoxTextChanged" />
+                <TextBox x:Name="FindBarResultTextBox" x:Uid="FindBarResultTextBox" IsEnabled="False"  Width="120" Margin="0 5 0 5" HorizontalAlignment="Center" Text="没有任何结果" TextAlignment="Center" Background="Transparent" BorderThickness="1"/>
+                <Button x:Name="FindBarPreviousButton" Background="Transparent" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" Click="FindBarPreviousButtonClicked" Height="40" Width="40">
+                    <FontIcon Glyph="&#xE76B;"/>
+                </Button>
+                <Button x:Name="FindBarNextButton" Background="Transparent" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" Click="FindBarNextButtonClicked" Height="40" Width="40">
+                    <FontIcon Glyph="&#xE76C;"/>
+                </Button>
+               <!--TODO: 区分大小写-->
+            </StackPanel>
+            
+            <Grid Grid.Column="2">
+                <Button x:Name="FinBarCloseButton" Background="Transparent" HorizontalAlignment="Right" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" Height="40" Width="40" Click="FinBarCloseButtonClicked">
+                    <FontIcon Glyph="&#xE8BB;"/>
+                </Button>
+            </Grid>
+        </Grid>
+
+
+
+        <!--Editing Area-->
+        <TextBox x:Name="TabTextBox" x:FieldModifier="Public" AcceptsReturn="True" Grid.Row="2" SelectionHighlightColorWhenNotFocused="LightGray" BorderThickness="0" Background="{ThemeResource SystemChromeWhiteColor}" TextChanged="TextChanged" SelectionChanged="TextBoxSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" PointerWheelChanged="TabTextBoxPointerWheelChaned">
+            <!--TextBox RightClicked Menu-->
+            <TextBox.ContextFlyout>
+                <MenuFlyout>
+                    
+                    <!--Undo Function-->
+                    <MenuFlyoutItem x:Name="RightClickMenuUndoButton" x:Uid="RightClickMenuUndoButton" Text="撤销" Click="RightClickMenuUndoButtonClicked">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE7A7;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator/>
+
+                    <!--Editing Functions-->
+                    <MenuFlyoutItem x:Name="RightClickMenuCopyButton" x:Uid="RightClickMenuCopyButton" Text="复制" IsEnabled="False" Click="RightClickMenuCopyButtonClicked">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE8C8;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="RightClickMenuCutButton" x:Uid="RightClickMenuCutButton" Text="剪切" IsEnabled="False" Click="RightClickMenuCutButtonClicked">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE8C6;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="RightClickMenuPasteButton" x:Uid="RightClickMenuPasteButton" Text="粘贴" Click="RightClickMenuPasteButtonClicked">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE77F;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="RightClickMenuSelectAllButton" x:Uid="RightClickMenuSelectAllButton" Text="全选" Click="RightClickMenuSelectAllButtonClicked">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xE8B3;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutSeparator x:Name="RightClickMenuSeparatorBetweenEditAndWeb" Visibility="Collapsed"/>
+
+                    <!--Web Functions-->
+                    <MenuFlyoutItem x:Name="RightClickMenuWebSearchButton" x:Uid="RightClickMenuWebSearchButton" Text="网页搜索..." Visibility="Collapsed" Click="RightClickMenuWebSearchButtonClicked">
+                        <MenuFlyoutItem.Icon>
+                            <FontIcon Glyph="&#xF6FA;"/>
+                        </MenuFlyoutItem.Icon>
+                    </MenuFlyoutItem>
+
+                    <MenuFlyoutItem x:Name="RightClickMenuAskCortanaButton" x:Uid="RightClickMenuAskCortanaButton" Text="询问小娜..." Visibility="Collapsed" Click="RightClickMenuAskCortanaButtonClicked" >
+                        <!--TODO: Cortana Icon-->
+                    </MenuFlyoutItem>
+                </MenuFlyout>
+            </TextBox.ContextFlyout>
+
+        </TextBox>
+
+        <!--StatusBar-->
+        <Grid x:Name="StatusBar" Grid.Row="3" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" Height="35">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <TextBlock x:Name="StatusBarLineDisplayer" x:Uid="StatusBarLineDisplayer" Text="第 1 行，第 1 列" VerticalAlignment="Center" Margin="10 0 10 0"/>
+                <AppBarSeparator/>
+                <TextBlock x:Name="StatusBarCharacterCountDisplay" x:Uid="StatusBarCharacterCountDisplay" Text="0 个字" VerticalAlignment="Center" Margin="10 0 10 0"/>
+                <AppBarSeparator/>
+                <!--<TextBlock Text="Windows(CRLF)" VerticalAlignment="Center" Margin="10 0 10 0"/>
+                <AppBarSeparator/>-->
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="3">
+                <AppBarSeparator/>
+                <Button x:Name="StatusBarZoomOutButton" Content="-" FontSize="12" Background="Transparent" Style="{ThemeResource ButtonRevealStyle}" Click="StatusBarZoomOutButtonClicked"/>
+                <Slider x:Name="StatusBarZoomScaleSlider" Width="50" Maximum="500" Minimum="10" StepFrequency="10" Value="100" ValueChanged="StatusBarZoomScaleSliderValueChanged"/>
+                <Button x:Name="StatusBarZoomInButton" Content="+" FontSize="12" Background="Transparent" Style="{ThemeResource ButtonRevealStyle}" Click="StatusBarZoomInButtonClicked"/>
+                <TextBlock x:Name="StatusBarZoomScaleTextDisplayer" Text="100%" FontSize="12" Margin="10 0 10 0" VerticalAlignment="Center" Width="30"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</UserControl>

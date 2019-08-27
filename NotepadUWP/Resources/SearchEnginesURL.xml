@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SearchEngines>
+  <SearchEngine Name="ComboBoxBing" SearchEngineName="Bing" URL="https://bing.com/search?q=TestString"/>
+  <SearchEngine Name="ComboBoxGoogle" SearchEngineName="Google" URL="https://www.google.com/search?q=TestString"/>
+  <SearchEngine Name="ComboBoxGitHub" SearchEngineName="GitHub" URL="https://github.com/search?&amp;q=TestString"/>
+  <SearchEngine Name="ComboBoxBaidu" SearchEngineName="百度" URL="https://www.baidu.com/s?wd=TestString"/>
+  <SearchEngine Name="ComboBoxSogou" SearchEngineName="搜狗" URL="https://www.sogou.com/web?query=TestString"/>
+</SearchEngines>
+
