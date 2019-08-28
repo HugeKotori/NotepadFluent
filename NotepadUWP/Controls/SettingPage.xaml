@@ -22,84 +22,91 @@
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="56"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="56"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="56"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="56"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="28"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="56"/>
         </Grid.ColumnDefinitions>
+
+        <!--Top-->
+        <Grid Grid.Row="0"/>
         
+        <!--Title-->
+        <TextBlock x:Name="SettingPageTitle" x:Uid="SettingPageTitle" Text="设置" Grid.Row="1" Grid.Column="1" FontSize="{StaticResource TitleFontSize}"/>
+
         <!--Left Part-->
-        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" CanBeScrollAnchor="True">
+        <ScrollViewer Grid.Row="2" Grid.Column="1" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" CanBeScrollAnchor="True">
+                <StackPanel>
+                    <!--FormatPart-->
+                    <TextBlock x:Name="SettingPageFormatSubTitle" x:Uid="SettingPageFormatSubTitle" Text="格式" FontSize="{StaticResource SubTitleFontSize}"/>
+                    <Grid Height="{StaticResource SeperatorHeight}"/>
 
-            <!--Setting Page Title-->
-            <TextBlock x:Name="SettingPageTitle" x:Uid="SettingPageTitle" Text="设置" FontSize="{StaticResource TitleFontSize}"/>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
-            
-            <!--FormatPart-->
-            <TextBlock x:Name="SettingPageFormatSubTitle" x:Uid="SettingPageFormatSubTitle" Text="格式" FontSize="{StaticResource SubTitleFontSize}"/>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
+                    <!--WrapSwitcher-->
+                    <TextBlock x:Name="SettingPageWordWrapText" x:Uid="SettingPageWordWrapText" Text="自动换行" FontSize="{StaticResource BodyFontSize}"/>
+                    <ToggleSwitch x:Name="LineWrapSetter" Toggled="LineWrapSetterToggled"/>
+                    <Grid Height="{StaticResource SeperatorHeight}"/>
 
-            <!--WrapSwitcher-->
-            <TextBlock x:Name="SettingPageWordWrapText" x:Uid="SettingPageWordWrapText" Text="自动换行" FontSize="{StaticResource BodyFontSize}"/>
-            <ToggleSwitch x:Name="LineWrapSetter" Toggled="LineWrapSetterToggled"/>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
-            
-            <!--Display Part-->
-            <TextBlock x:Name="SettingPageAppearanceSubTitle" x:Uid="SettingPageAppearanceSubTitle" Text="显示" FontSize="{StaticResource SubTitleFontSize}"/>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
-            
-            <!--Font Part-->
-            <TextBlock x:Name="SettingPageFontAndFontSizeText" x:Uid="SettingPageFontAndFontSizeText" Text="字体和字号" FontSize="{StaticResource BodyFontSize}"/>
-            <StackPanel Margin="0 6 0 0" Orientation="Horizontal" Height="Auto">
-                <ComboBox x:Name="FontFamilySelectingComboBox" Width="250" SelectionChanged="FontFamilySelectingComboBoxSelectionChanged"/>
-                <ComboBox x:Name="FontSizeSelectingComboBox" IsEditable="True" Width="100" SelectionChanged="FontSizeSelectingComboBoxSelectionChanged" TextSubmitted="FontSizeSelectingComboBoxTextSubmitted">
-                    <x:Double>8</x:Double>
-                    <x:Double>9</x:Double>
-                    <x:Double>10</x:Double>
-                    <x:Double>11</x:Double>
-                    <x:Double>12</x:Double>
-                    <x:Double>14</x:Double>
-                    <x:Double>16</x:Double>
-                    <x:Double>18</x:Double>
-                    <x:Double>20</x:Double>
-                    <x:Double>22</x:Double>
-                    <x:Double>24</x:Double>
-                    <x:Double>26</x:Double>
-                    <x:Double>28</x:Double>
-                    <x:Double>36</x:Double>
-                    <x:Double>48</x:Double>
-                    <x:Double>72</x:Double>
-                </ComboBox>
+                    <!--Display Part-->
+                    <TextBlock x:Name="SettingPageAppearanceSubTitle" x:Uid="SettingPageAppearanceSubTitle" Text="显示" FontSize="{StaticResource SubTitleFontSize}"/>
+                    <Grid Height="{StaticResource SeperatorHeight}"/>
+
+                    <!--Font Part-->
+                    <TextBlock x:Name="SettingPageFontAndFontSizeText" x:Uid="SettingPageFontAndFontSizeText" Text="字体和字号" FontSize="{StaticResource BodyFontSize}"/>
+                    <StackPanel Margin="0 6 0 0" Orientation="Horizontal" Height="Auto">
+                        <ComboBox x:Name="FontFamilySelectingComboBox" Width="250" SelectionChanged="FontFamilySelectingComboBoxSelectionChanged"/>
+                        <ComboBox x:Name="FontSizeSelectingComboBox" IsEditable="True" Width="100" SelectionChanged="FontSizeSelectingComboBoxSelectionChanged" TextSubmitted="FontSizeSelectingComboBoxTextSubmitted">
+                            <x:Double>8</x:Double>
+                            <x:Double>9</x:Double>
+                            <x:Double>10</x:Double>
+                            <x:Double>11</x:Double>
+                            <x:Double>12</x:Double>
+                            <x:Double>14</x:Double>
+                            <x:Double>16</x:Double>
+                            <x:Double>18</x:Double>
+                            <x:Double>20</x:Double>
+                            <x:Double>22</x:Double>
+                            <x:Double>24</x:Double>
+                            <x:Double>26</x:Double>
+                            <x:Double>28</x:Double>
+                            <x:Double>36</x:Double>
+                            <x:Double>48</x:Double>
+                            <x:Double>72</x:Double>
+                        </ComboBox>
+                    </StackPanel>
+                    <Grid Height="{StaticResource SeperatorHeight}"/>
+
+                    <!--Display StatusBar or Not-->
+                    <TextBlock x:Name="SettingPageDisplayStatusBar" x:Uid="SettingPageDisplayStatusBar" Text="显示状态栏" FontSize="{StaticResource BodyFontSize}"/>
+                    <ToggleSwitch x:Name="StatusBarSwitcher" Toggled="StatusBarSwitcherToggled"/>
+                    <Grid Height="{StaticResource SeperatorHeight}"/>
+
+
+
+                    <!--General Part-->
+                    <TextBlock x:Name="SettingPageOtherSubTitle" x:Uid="SettingPageOtherSubTitle" Text="其他" FontSize="{StaticResource SubTitleFontSize}"/>
+                    <Grid Height="{StaticResource SeperatorHeight}"/>
+
+                    <!--Search Engine Setting-->
+                    <TextBlock x:Name="SettingPageSearchEngineText" x:Uid="SettingPageSearchEngineText" Text="搜索引擎" FontSize="{StaticResource BodyFontSize}"/>
+                    <ComboBox x:Name="SearchEngineComboBox" Width="200" Margin="0 6 0 0" SelectionChanged="SearchEngineComboBoxSelectionChanged">
+                        <!--ComboBox Items-->
+                    </ComboBox>
+
+                </StackPanel>
+
             </StackPanel>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
 
-            <!--Display StatusBar or Not-->
-            <TextBlock x:Name="SettingPageDisplayStatusBar" x:Uid="SettingPageDisplayStatusBar" Text="显示状态栏" FontSize="{StaticResource BodyFontSize}"/>
-            <ToggleSwitch x:Name="StatusBarSwitcher" Toggled="StatusBarSwitcherToggled"/>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
+        </ScrollViewer>
 
-
-
-            <!--General Part-->
-            <TextBlock x:Name="SettingPageOtherSubTitle" x:Uid="SettingPageOtherSubTitle" Text="其他" FontSize="{StaticResource SubTitleFontSize}"/>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
-
-            <!--Search Engine Setting-->
-            <TextBlock x:Name="SettingPageSearchEngineText" x:Uid="SettingPageSearchEngineText" Text="搜索引擎" FontSize="{StaticResource BodyFontSize}"/>
-            <ComboBox x:Name="SearchEngineComboBox" Width="200" Margin="0 6 0 0" SelectionChanged="SearchEngineComboBoxSelectionChanged">
-                <!--ComboBox Items-->
-            </ComboBox>
-
-        </StackPanel>
-        
         <!--Right Part-->
-        <StackPanel Grid.Row="1" Grid.Column="2">
-            <!--对齐-->
-            <TextBlock Text="    " FontSize="{StaticResource TitleFontSize}"/>
-            <Grid Height="{StaticResource SeperatorHeight}"/>
+        <StackPanel Grid.Row="2" Grid.Column="3">
 
             <!--About-->
             <TextBlock x:Name="SettingPageAboutSubTitle" x:Uid="SettingPageAboutSubTitle" Text="关于此应用" FontSize="{StaticResource SubTitleFontSize}"/>
@@ -119,6 +126,10 @@
 
 
         </StackPanel>
+
+        <!--Bottom-->
+        <Grid Grid.Row="2"/>
+
         <Grid.Transitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
