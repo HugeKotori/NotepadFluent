@@ -123,11 +123,23 @@
   <data name="AppBarAddDateButton.Text" xml:space="preserve">
     <value>日期</value>
   </data>
+  <data name="AppBarAddTabButton.Text" xml:space="preserve">
+    <value>制表符</value>
+  </data>
   <data name="AppBarAddTimeButton.Text" xml:space="preserve">
     <value>时间</value>
   </data>
+  <data name="AppBarCopyButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>复制 (Ctrl+C)</value>
+  </data>
+  <data name="AppBarCutButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>剪切 (Ctrl+X)</value>
+  </data>
   <data name="AppBarFindButton.Label" xml:space="preserve">
     <value>寻找</value>
+  </data>
+  <data name="AppBarFindButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>查找 (Ctrl+F)</value>
   </data>
   <data name="AppBarHelpButton.Label" xml:space="preserve">
     <value>帮助</value>
@@ -135,19 +147,37 @@
   <data name="AppBarNewFileButton.Label" xml:space="preserve">
     <value>新建</value>
   </data>
+  <data name="AppBarNewFileButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>新建 (Ctrl+N)</value>
+  </data>
   <data name="AppBarOpenFileButton.Label" xml:space="preserve">
     <value>打开...</value>
+  </data>
+  <data name="AppBarOpenFileButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>打开... (Ctrl+O)</value>
+  </data>
+  <data name="AppBarPasteButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>粘贴 (Ctrl+V)</value>
   </data>
   <data name="AppBarSaveAsButton.Text" xml:space="preserve">
     <value>另存为...</value>
   </data>
+  <data name="AppBarSaveButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>保存 (Ctrl+S)</value>
+  </data>
   <data name="AppBarSelectAllButton.Label" xml:space="preserve">
     <value>全选</value>
+  </data>
+  <data name="AppBarSelectAllButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>全选 (Ctrl+A)</value>
   </data>
   <data name="AppBarSettingButton.Label" xml:space="preserve">
     <value>设置</value>
   </data>
   <data name="AppBarWebSearchButton.Label" xml:space="preserve">
+    <value>Web 搜索</value>
+  </data>
+  <data name="AppBarWebSearchButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Web 搜索</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
@@ -271,10 +301,16 @@
     <value>第 </value>
   </data>
   <data name="StatusBarLnCow1" xml:space="preserve">
-    <value>行，第 </value>
+    <value> 行，第 </value>
   </data>
   <data name="StatusBarLnCow2" xml:space="preserve">
     <value> 列</value>
+  </data>
+  <data name="StatusBarZoomInButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>放大 (Ctrl++)</value>
+  </data>
+  <data name="StatusBarZoomOutButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>缩小 (Ctrl+-)</value>
   </data>
   <data name="TabTextBoxRightClickMenuAskCortana0" xml:space="preserve">
     <value>询问小娜有关“</value>

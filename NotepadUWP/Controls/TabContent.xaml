@@ -17,11 +17,16 @@
         </Grid.RowDefinitions>
         
         <!--CommandBar Left-->
-        <CommandBar DefaultLabelPosition="Right" IsOpen="False" HorizontalAlignment="Left" Background="{ThemeResource SystemChromeLowColor}" OverflowButtonVisibility="Collapsed">
+        <CommandBar DefaultLabelPosition="Right" IsOpen="False" HorizontalAlignment="Left" 
+                    Background="{ThemeResource SystemChromeLowColor}" OverflowButtonVisibility="Collapsed">
             <AppBarButton x:Name="AppBarUndoButton" Icon="Undo" LabelPosition="Collapsed" Width="48" Click="AppBarUndoButtonClicked"/>
             <AppBarButton x:Name="AppBarRedoButton" Icon="Redo" LabelPosition="Collapsed" Width="48" Click="AppBarRedoButtonClicked"/>
             <AppBarSeparator/>
-            <AppBarButton x:Name="AppBarSaveButton" Icon="Save" LabelPosition="Collapsed" Width="35" Click="AppBarSaveButtonClicked"/>
+            <AppBarButton x:Name="AppBarSaveButton" x:Uid="AppBarSaveButton" Icon="Save" LabelPosition="Collapsed" Width="35" Click="AppBarSaveButtonClicked">
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="S"/>
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
                 <AppBarButton LabelPosition="Collapsed" Width="18" Margin="-3,0,3,0">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xE70D;"/>
@@ -36,8 +41,16 @@
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-            <AppBarButton x:Name="AppBarOpenFileButton" x:Uid="AppBarOpenFileButton" Icon="OpenFile" Label="打开..." Click="AppBarOpenFileButtonClicked"/>
-            <AppBarButton x:Name="AppBarNewFileButton" x:Uid="AppBarNewFileButton" Icon="Add" Label="新建" Click="AppBarNewFileButtonClicked"/>
+            <AppBarButton x:Name="AppBarOpenFileButton" x:Uid="AppBarOpenFileButton" Icon="OpenFile" Label="打开..." Click="AppBarOpenFileButtonClicked">
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="O"/>
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
+            <AppBarButton x:Name="AppBarNewFileButton" x:Uid="AppBarNewFileButton" Icon="Add" Label="新建" Click="AppBarNewFileButtonClicked">
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="N"/>
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
             <AppBarSeparator/>
             <AppBarButton x:Name="AppBarCopyButton" x:Uid="AppBarCopyButton" Icon="Copy" LabelPosition="Collapsed" Width="48" Click="AppBarCopyButtonClicked"/>
             <AppBarButton x:Name="AppBarCutButton" x:Uid="AppBarCutButton" Icon="Cut" LabelPosition="Collapsed" Width="48" Click="AppBarCutButtonClicked"/>
@@ -46,13 +59,26 @@
             <AppBarButton x:Name="AppBarAddButton" x:Uid="AppBarAddButton" Icon="Add" Label="插入">
                 <AppBarButton.Flyout>
                     <MenuFlyout>
+                        <MenuFlyoutItem x:Name="AppBarAddTabButton" x:Uid="AppBarAddTabButton" Text="制表符" Click="AppBarAddTabButtonClicked">
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="None" Key="Tab"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
                         <MenuFlyoutItem x:Name="AppBarAddDateButton" x:Uid="AppBarAddDateButton" Text="日期" Click="AppBarAddDateButtonClicked"/>
-                        <MenuFlyoutItem x:Name="AppBarAddTimeButton" x:Uid="AppBarAddTimeButton"  Text="时间" Click="AppBarAddTimeButtonClicked"/>
+                        <MenuFlyoutItem x:Name="AppBarAddTimeButton" x:Uid="AppBarAddTimeButton"  Text="时间" Click="AppBarAddTimeButtonClicked">
+                            <MenuFlyoutItem.KeyboardAccelerators>
+                                <KeyboardAccelerator Modifiers="None" Key="F5"/>
+                            </MenuFlyoutItem.KeyboardAccelerators>
+                        </MenuFlyoutItem>
                     </MenuFlyout>
                 </AppBarButton.Flyout>
             </AppBarButton>
-            <AppBarButton x:Name="AppBarFindButton" x:Uid="AppBarFindButton" Icon="Find" Label="查找" Click="AppBarFindButtonClicked"/>
-            <AppBarButton x:Name="AppBarWebSearchButton" x:Uid="AppBarWebSearchButton" Label="搜索" Click="AppBarWebSearchButtonClicked">
+            <AppBarButton x:Name="AppBarFindButton" x:Uid="AppBarFindButton" Icon="Find" Label="查找" Click="AppBarFindButtonClicked">
+                <AppBarButton.KeyboardAccelerators>
+                    <KeyboardAccelerator Modifiers="Control" Key="F"/>
+                </AppBarButton.KeyboardAccelerators>
+            </AppBarButton>
+            <AppBarButton x:Name="AppBarWebSearchButton" x:Uid="AppBarWebSearchButton" Label="Web 搜索" Click="AppBarWebSearchButtonClicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xF6FA;"/>
                 </AppBarButton.Icon>
@@ -85,19 +111,27 @@
             <TextBlock x:Name="FindBarTopLeftTextBlock" x:Uid="FindBarTopLeftTextBlock" Text="在文档里查找" Grid.Column="0" Margin="10 0 10 0" VerticalAlignment="Center" FontSize="13"/>
             
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <TextBox x:Name="FindBarInputTextBox" x:Uid="FindBarInputTextBox" PlaceholderText="输入要寻找的文本" Width="320" Background="White" Margin="0 5 0 5" BorderThickness="1" TextChanged="FindBarInputTextBoxTextChanged" />
-                <TextBox x:Name="FindBarResultTextBox" x:Uid="FindBarResultTextBox" IsEnabled="False"  Width="120" Margin="0 5 0 5" HorizontalAlignment="Center" Text="没有任何结果" TextAlignment="Center" Background="Transparent" BorderThickness="1"/>
-                <Button x:Name="FindBarPreviousButton" Background="Transparent" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" Click="FindBarPreviousButtonClicked" Height="40" Width="40">
+                <TextBox x:Name="FindBarInputTextBox" x:Uid="FindBarInputTextBox" PlaceholderText="输入要寻找的文本" Width="320" 
+                         Background="White" Margin="0 5 0 5" BorderThickness="1" TextChanged="FindBarInputTextBoxTextChanged" />
+                
+                <TextBox x:Name="FindBarResultTextBox" x:Uid="FindBarResultTextBox" IsEnabled="False"  Width="120" Margin="0 5 0 5" 
+                         HorizontalAlignment="Center" Text="没有任何结果" TextAlignment="Center" Background="Transparent" BorderThickness="1"/>
+                
+                <Button x:Name="FindBarPreviousButton" Background="Transparent" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" 
+                        Click="FindBarPreviousButtonClicked" Height="40" Width="40">
                     <FontIcon Glyph="&#xE76B;"/>
                 </Button>
-                <Button x:Name="FindBarNextButton" Background="Transparent" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" Click="FindBarNextButtonClicked" Height="40" Width="40">
+                
+                <Button x:Name="FindBarNextButton" Background="Transparent" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" 
+                        Click="FindBarNextButtonClicked" Height="40" Width="40">
                     <FontIcon Glyph="&#xE76C;"/>
                 </Button>
                <!--TODO: 区分大小写-->
             </StackPanel>
             
             <Grid Grid.Column="2">
-                <Button x:Name="FinBarCloseButton" Background="Transparent" HorizontalAlignment="Right" BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" Height="40" Width="40" Click="FinBarCloseButtonClicked">
+                <Button x:Name="FinBarCloseButton" Background="Transparent" HorizontalAlignment="Right" 
+                        BorderThickness="1" Style="{StaticResource ButtonRevealStyle}" Height="40" Width="40" Click="FinBarCloseButtonClicked">
                     <FontIcon Glyph="&#xE8BB;"/>
                 </Button>
             </Grid>
@@ -106,13 +140,20 @@
 
 
         <!--Editing Area-->
-        <TextBox x:Name="TabTextBox" x:FieldModifier="Public" AcceptsReturn="True" Grid.Row="2" SelectionHighlightColorWhenNotFocused="LightGray" BorderThickness="0" Background="{ThemeResource SystemChromeWhiteColor}" TextChanged="TextChanged" SelectionChanged="TextBoxSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" PointerWheelChanged="TabTextBoxPointerWheelChaned">
+        <TextBox x:Name="TabTextBox" x:FieldModifier="Public" AcceptsReturn="True" IsSpellCheckEnabled="False"
+                 Grid.Row="2" SelectionHighlightColorWhenNotFocused="LightGray" BorderThickness="0" 
+                 Background="{ThemeResource SystemChromeWhiteColor}" TextChanged="TextChanged" 
+                 SelectionChanged="TextBoxSelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 PointerWheelChanged="TabTextBoxPointerWheelChaned" KeyDown="TabTextBoxKeyDown">
             <!--TextBox RightClicked Menu-->
             <TextBox.ContextFlyout>
                 <MenuFlyout>
                     
                     <!--Undo Function-->
                     <MenuFlyoutItem x:Name="RightClickMenuUndoButton" x:Uid="RightClickMenuUndoButton" Text="撤销" Click="RightClickMenuUndoButtonClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="Z"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE7A7;"/>
                         </MenuFlyoutItem.Icon>
@@ -122,24 +163,36 @@
 
                     <!--Editing Functions-->
                     <MenuFlyoutItem x:Name="RightClickMenuCopyButton" x:Uid="RightClickMenuCopyButton" Text="复制" IsEnabled="False" Click="RightClickMenuCopyButtonClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="C"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE8C8;"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
                     <MenuFlyoutItem x:Name="RightClickMenuCutButton" x:Uid="RightClickMenuCutButton" Text="剪切" IsEnabled="False" Click="RightClickMenuCutButtonClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="X"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE8C6;"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
                     <MenuFlyoutItem x:Name="RightClickMenuPasteButton" x:Uid="RightClickMenuPasteButton" Text="粘贴" Click="RightClickMenuPasteButtonClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="V"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE77F;"/>
                         </MenuFlyoutItem.Icon>
                     </MenuFlyoutItem>
 
                     <MenuFlyoutItem x:Name="RightClickMenuSelectAllButton" x:Uid="RightClickMenuSelectAllButton" Text="全选" Click="RightClickMenuSelectAllButtonClicked">
+                        <MenuFlyoutItem.KeyboardAccelerators>
+                            <KeyboardAccelerator Modifiers="Control" Key="A"/>
+                        </MenuFlyoutItem.KeyboardAccelerators>
                         <MenuFlyoutItem.Icon>
                             <FontIcon Glyph="&#xE8B3;"/>
                         </MenuFlyoutItem.Icon>
@@ -182,9 +235,17 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="3">
                 <AppBarSeparator/>
-                <Button x:Name="StatusBarZoomOutButton" Content="-" FontSize="12" Background="Transparent" Style="{ThemeResource ButtonRevealStyle}" Click="StatusBarZoomOutButtonClicked"/>
+                <Button x:Name="StatusBarZoomOutButton" x:Uid="StatusBarZoomOutButton" Content="-" FontSize="12" Background="Transparent" Style="{ThemeResource ButtonRevealStyle}" Click="StatusBarZoomOutButtonClicked">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="Subtract"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
                 <Slider x:Name="StatusBarZoomScaleSlider" Width="50" Maximum="500" Minimum="10" StepFrequency="10" Value="100" ValueChanged="StatusBarZoomScaleSliderValueChanged"/>
-                <Button x:Name="StatusBarZoomInButton" Content="+" FontSize="12" Background="Transparent" Style="{ThemeResource ButtonRevealStyle}" Click="StatusBarZoomInButtonClicked"/>
+                <Button x:Name="StatusBarZoomInButton" x:Uid="StatusBarZoomInButton" Content="+" FontSize="12" Background="Transparent" Style="{ThemeResource ButtonRevealStyle}" Click="StatusBarZoomInButtonClicked">
+                    <Button.KeyboardAccelerators>
+                        <KeyboardAccelerator Modifiers="Control" Key="Add"/>
+                    </Button.KeyboardAccelerators>
+                </Button>
                 <TextBlock x:Name="StatusBarZoomScaleTextDisplayer" Text="100%" FontSize="12" Margin="10 0 10 0" VerticalAlignment="Center" Width="30"/>
             </StackPanel>
         </Grid>

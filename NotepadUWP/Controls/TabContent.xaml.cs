@@ -554,6 +554,17 @@ namespace NotepadUWP
                 e.Handled = true;
             }
         }
+        private void TabTextBoxKeyDown(object sender, KeyRoutedEventArgs e)     //Make textbox accepts tab
+        {
+            if (e.Key == Windows.System.VirtualKey.Tab)
+            {
+                int selectionStart = this.TabTextBox.SelectionStart + 1;
+                this.TabTextBox.Text = this.TabTextBox.Text.Insert(this.TabTextBox.SelectionStart, "\t");
+                this.TabTextBox.SelectionStart = selectionStart;
+                e.Handled = true;
+            }
+        }
+
 
 
         //AppBar Events
@@ -608,6 +619,12 @@ namespace NotepadUWP
         private void AppBarAddTimeButtonClicked(object sender, RoutedEventArgs e)       //插入时间
         {
             TabTextBox.Text = TabTextBox.Text.Insert(TabTextBox.SelectionStart, DateTime.Now.TimeOfDay.ToString());
+        }
+        private void AppBarAddTabButtonClicked(object sender, RoutedEventArgs e)
+        {
+            int selectionStart = this.TabTextBox.SelectionStart + 1;
+            this.TabTextBox.Text = this.TabTextBox.Text.Insert(this.TabTextBox.SelectionStart, "\t");
+            this.TabTextBox.SelectionStart = selectionStart;
         }
         private void AppBarFindButtonClicked(object sender, RoutedEventArgs e)  //Find
         {
@@ -683,12 +700,7 @@ namespace NotepadUWP
         //Debug
         private void DebugButtonClicked(object sender, RoutedEventArgs e)
         {
-            ContentDialog contentDialog = new ContentDialog
-            {
-                Content = this.isEdited.ToString(),
-                CloseButtonText = (string)mainPage.localSettings.Values["FontFamily"],
-            };
-            contentDialog.ShowAsync();
+
         }
 
 
@@ -785,5 +797,6 @@ namespace NotepadUWP
                 this.FindBarResultTextBox.Text = (findResultIndex + 1) + "/" + findResult.Count;
             }
         }
+
     }
 }

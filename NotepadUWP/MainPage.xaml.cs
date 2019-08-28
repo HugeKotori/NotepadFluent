@@ -88,44 +88,67 @@ namespace NotepadUWP
                     {
                         //if clicked Save
                         case ContentDialogResult.Primary:
-                            FileSavePicker fileSavePicker = new FileSavePicker();
-                            fileSavePicker.SuggestedStartLocation = PickerLocationId.Desktop;
-                            fileSavePicker.FileTypeChoices.Add(resourceLoader.GetString("TextFile"), new List<string>() { ".txt" });
-                            fileSavePicker.SuggestedFileName = ((TabViewItem)this.TabBar.SelectedItem).Header.ToString().Substring(1);
-                            ((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file = await fileSavePicker.PickSaveFileAsync();
-                            //if noting chosen, return, not closing the tab
-                            if (((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file == null)
                             {
-                                return;
+                                if (((TabContent)((TabViewItem)this.TabBar.SelectedItem).Content).file == null)
+                                {
+                                    FileSavePicker fileSavePicker = new FileSavePicker();
+                                    fileSavePicker.SuggestedStartLocation = PickerLocationId.Desktop;
+                                    fileSavePicker.FileTypeChoices.Add(resourceLoader.GetString("TextFile"), new List<string>() { ".txt" });
+                                    fileSavePicker.SuggestedFileName = ((TabViewItem)this.TabBar.SelectedItem).Header.ToString().Substring(1);
+                                    ((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file = await fileSavePicker.PickSaveFileAsync();
+                                    //if noting chosen, return, not closing the tab
+                                    if (((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file == null)
+                                    {
+                                        return;
+                                    }
+
+                                    //prevent upload until saved (onedrive, etc)
+                                    Windows.Storage.CachedFileManager.DeferUpdates(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file);
+
+                                    //Write to file
+                                    await Windows.Storage.FileIO.WriteTextAsync(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file, ((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).TabTextBox.Text);
+
+                                    //let windows know we finished writing
+                                    await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file);
+
+                                    //save complete
+                                    //exit the app
+                                    App.Current.Exit();
+                                    return;
+                                }
+                                else
+                                {
+                                    //if not a new file
+                                    //prevent upload until saved (onedrive, etc)
+                                    Windows.Storage.CachedFileManager.DeferUpdates(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file);
+
+                                    //Write to file
+                                    await Windows.Storage.FileIO.WriteTextAsync(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file, ((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).TabTextBox.Text);
+
+                                    //let windows know we finished writing
+                                    await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file);
+                                    
+                                    //finishe saving, Exit
+                                    Application.Current.Exit();
+                                    return;
+
+                                }
+
                             }
-
-                            //prevent upload until saved (onedrive, etc)
-                            Windows.Storage.CachedFileManager.DeferUpdates(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file);
-
-                            //Write to file
-                            await Windows.Storage.FileIO.WriteTextAsync(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file, ((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).TabTextBox.Text);
-
-                            //let windows know we finished writing
-                            await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file);
-
-                            ((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).isEdited = false;
-                            //tab header changed
-                            ((TabViewItem)this.TabBar.SelectedItem).Header = ((TabContent)(((TabViewItem)this.TabBar.SelectedItem).Content)).file.Name;
-
-                            //save complete
-                            //exit the app
-                            App.Current.Exit();
-                            return;
 
                         //if clicked not Save, close tab
                         case ContentDialogResult.Secondary:
-                            //close the app
-                            App.Current.Exit();
-                            return;
+                            {
+                                //close the app
+                                App.Current.Exit();
+                                return;
+                            }
 
                         //if clicked cancel - return
                         case ContentDialogResult.None:
-                            return;
+                            {
+                                return;
+                            }
                     }
                 }
             }
@@ -296,56 +319,80 @@ namespace NotepadUWP
                 {
                     //if clicked Save
                     case ContentDialogResult.Primary:
-                        FileSavePicker fileSavePicker = new FileSavePicker();
-                        fileSavePicker.SuggestedStartLocation = PickerLocationId.Desktop;
-                        fileSavePicker.FileTypeChoices.Add(resourceLoader.GetString("TextFile"), new List<string>() { ".txt" });
-                        fileSavePicker.SuggestedFileName = e.Tab.Header.ToString().Substring(1);
-                        ((TabContent)(e.Tab.Content)).file = await fileSavePicker.PickSaveFileAsync();
-                        //if noting chosen, return, not closing the tab
-                        if (((TabContent)(e.Tab.Content)).file == null)
                         {
-                            return;
-                        }
+                            if (((TabContent)(e.Tab.Content)).file == null)
+                            {
+                                FileSavePicker fileSavePicker = new FileSavePicker();
+                                fileSavePicker.SuggestedStartLocation = PickerLocationId.Desktop;
+                                fileSavePicker.FileTypeChoices.Add(resourceLoader.GetString("TextFile"), new List<string>() { ".txt" });
+                                fileSavePicker.SuggestedFileName = e.Tab.Header.ToString().Substring(1);
+                                ((TabContent)(e.Tab.Content)).file = await fileSavePicker.PickSaveFileAsync();
+                                //if noting chosen, return, not closing the tab
+                                if (((TabContent)(e.Tab.Content)).file == null)
+                                {
+                                    return;
+                                }
 
-                        //prevent upload until saved (onedrive, etc)
-                        Windows.Storage.CachedFileManager.DeferUpdates(((TabContent)(e.Tab.Content)).file);
+                                //prevent upload until saved (onedrive, etc)
+                                Windows.Storage.CachedFileManager.DeferUpdates(((TabContent)(e.Tab.Content)).file);
 
-                        //Write to file
-                        await Windows.Storage.FileIO.WriteTextAsync(((TabContent)(e.Tab.Content)).file, ((TabContent)(e.Tab.Content)).TabTextBox.Text);
+                                //Write to file
+                                await Windows.Storage.FileIO.WriteTextAsync(((TabContent)(e.Tab.Content)).file, ((TabContent)(e.Tab.Content)).TabTextBox.Text);
 
-                        //let windows know we finished writing
-                        await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(((TabContent)(e.Tab.Content)).file);
-
-                        ((TabContent)(e.Tab.Content)).isEdited = false;
-                        //tab header changed
-                        e.Tab.Header = ((TabContent)(e.Tab.Content)).file.Name;
+                                //let windows know we finished writing
+                                await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(((TabContent)(e.Tab.Content)).file);
                         
-                        //save complete, remove the tab
-                        this.TabBar.Items.Remove(e.Tab);
+                                //save complete, remove the tab
+                                this.TabBar.Items.Remove(e.Tab);
 
-                        //save complete
-                        //If all tab closed, exit the app
-                        if (this.TabBar.Items.Count == 0)
-                        {
-                            Application.Current.Exit();
+                                //save complete
+                                //If all tab closed, exit the app
+                                if (this.TabBar.Items.Count == 0)
+                                {
+                                    Application.Current.Exit();
+                                }
+                                return;
+                            }
+                            else
+                            {
+                                //if not a new file
+                                //prevent upload until saved (onedrive, etc)
+                                Windows.Storage.CachedFileManager.DeferUpdates(((TabContent)(e.Tab.Content)).file);
+
+                                //Write to file
+                                await Windows.Storage.FileIO.WriteTextAsync(((TabContent)(e.Tab.Content)).file, ((TabContent)(e.Tab.Content)).TabTextBox.Text);
+
+                                //let windows know we finished writing
+                                await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(((TabContent)(e.Tab.Content)).file);
+                                //save complete, remove the tab
+                                this.TabBar.Items.Remove(e.Tab);
+                                if (this.TabBar.Items.Count == 0)
+                                {
+                                    Application.Current.Exit();
+                                }
+                                return;
+                            }
+
                         }
-
-                        return;
 
                     //if clicked not Save, close tab
                     case ContentDialogResult.Secondary:
-                        //remove this tab
-                        this.TabBar.Items.Remove(e.Tab);
-                        //If all tab closed, exit the app
-                        if (this.TabBar.Items.Count == 0)
                         {
-                            Application.Current.Exit();
+                            //remove this tab
+                            this.TabBar.Items.Remove(e.Tab);
+                            //If all tab closed, exit the app
+                            if (this.TabBar.Items.Count == 0)
+                            {
+                                Application.Current.Exit();
+                            }
+                            return;
                         }
-                        return;
 
                     //if clicked cancel - return
                     case ContentDialogResult.None:
-                        return;
+                        {
+                            return;
+                        }
                 }
             }
 

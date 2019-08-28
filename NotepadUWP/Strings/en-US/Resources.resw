@@ -123,11 +123,23 @@
   <data name="AppBarAddDateButton.Text" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="AppBarAddTabButton.Text" xml:space="preserve">
+    <value>Tab</value>
+  </data>
   <data name="AppBarAddTimeButton.Text" xml:space="preserve">
     <value>Time</value>
   </data>
+  <data name="AppBarCopyButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Copy (Ctrl+C)</value>
+  </data>
+  <data name="AppBarCutButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Cut (Ctrl+X)</value>
+  </data>
   <data name="AppBarFindButton.Label" xml:space="preserve">
     <value>Find</value>
+  </data>
+  <data name="AppBarFindButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Find (Ctrl+F)</value>
   </data>
   <data name="AppBarHelpButton.Label" xml:space="preserve">
     <value>Help</value>
@@ -135,19 +147,37 @@
   <data name="AppBarNewFileButton.Label" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="AppBarNewFileButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>New (Ctrl+N)</value>
+  </data>
   <data name="AppBarOpenFileButton.Label" xml:space="preserve">
     <value>Open</value>
+  </data>
+  <data name="AppBarOpenFileButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Open... (Ctrl+O)</value>
+  </data>
+  <data name="AppBarPasteButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Paste (Ctrl+V)</value>
   </data>
   <data name="AppBarSaveAsButton.Text" xml:space="preserve">
     <value>Save as...</value>
   </data>
+  <data name="AppBarSaveButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Save (Ctrl+S)</value>
+  </data>
   <data name="AppBarSelectAllButton.Label" xml:space="preserve">
     <value>Select All</value>
+  </data>
+  <data name="AppBarSelectAllButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Select All (Ctrl+A)</value>
   </data>
   <data name="AppBarSettingButton.Label" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="AppBarWebSearchButton.Label" xml:space="preserve">
+    <value>Web Search</value>
+  </data>
+  <data name="AppBarWebSearchButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Web Search</value>
   </data>
   <data name="DisplayName" xml:space="preserve">
@@ -275,6 +305,12 @@
   </data>
   <data name="StatusBarLnCow2" xml:space="preserve">
     <value />
+  </data>
+  <data name="StatusBarZoomInButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Zoom in (Ctrl++)</value>
+  </data>
+  <data name="StatusBarZoomOutButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Zoom out (Ctrl+-)</value>
   </data>
   <data name="TabTextBoxRightClickMenuAskCortana0" xml:space="preserve">
     <value>Ask Cortana about "</value>
