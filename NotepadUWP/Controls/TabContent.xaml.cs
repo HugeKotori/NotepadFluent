@@ -10,6 +10,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.Pickers;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -638,7 +639,53 @@ namespace NotepadUWP
                 this.FindBar.Visibility = Visibility.Collapsed;
             }
         }
+        private void AppBarJumpToButtonFlyoutButtonClicked(object sender, RoutedEventArgs e)
+        {
+            int lineInput;
+            bool isInputLegal = int.TryParse(this.AppBarJumpToButtonFlyoutTextBox.Text, out lineInput);
 
+            //if input something wrong
+            if (!isInputLegal || lineInput <= 0)
+            {
+                this.AppBarJumpToButtonFlyoutTextBox.Text = "";
+                return;
+            }
+
+
+            int lineCounter = 0;
+            int charCounter = 0;
+            foreach (char c in this.TabTextBox.Text)
+            {
+                if (c == '\n' || c == '\r')
+                {
+                    lineCounter++;
+                }
+                if (lineCounter == lineInput)
+                {
+                    this.TabTextBox.SelectionStart = charCounter;
+                    this.TabTextBox.Focus(FocusState.Programmatic);
+                    return;
+                }
+                charCounter++;
+            }
+
+            //only 1 line
+            if (lineCounter == 0)
+            {
+                this.TabTextBox.SelectionStart = 0;
+                this.TabTextBox.Focus(FocusState.Programmatic);
+                return;
+            }
+
+            //if input > total lines
+            var resourceLoader = Windows.ApplicationModel.Resources.ResourceLoader.GetForCurrentView();
+            ContentDialog contentDialog = new ContentDialog
+            {
+                CloseButtonText = resourceLoader.GetString("AppBarJumpToButtonFlyoutDialogCloseButtonText"),
+                Content = resourceLoader.GetString("AppBarJumpToButtonFlyoutDialogContent"),
+            };
+            contentDialog.ShowAsync();
+        }
         private void AppBarWebSearchButtonClicked(object sender, RoutedEventArgs e)     //网页搜索
         {
             WebSearchSelectedText();

@@ -144,6 +144,21 @@
   <data name="AppBarHelpButton.Label" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="AppBarJumpToButton.Label" xml:space="preserve">
+    <value>Jump to...</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutButton.Content" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutDialogCloseButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutDialogContent" xml:space="preserve">
+    <value>Line not exist!</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutText.Text" xml:space="preserve">
+    <value>Jump to line:</value>
+  </data>
   <data name="AppBarNewFileButton.Label" xml:space="preserve">
     <value>New</value>
   </data>

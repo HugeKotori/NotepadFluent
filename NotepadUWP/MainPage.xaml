@@ -7,14 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" PreviewKeyDown="NotepadAppMainWindowPreviewKeyDown">
 
     <Grid>
         <Grid x:Name="TitleBar" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"/>
         <controls:TabView x:Name="TabBar" TabWidthBehavior="Equal" 
                           CanCloseTabs="True" IsCloseButtonOverlay="True"
                           CanDragItems="True" CanReorderItems="True"
-                          AllowDrop="True" SelectedTabWidth="200" Grid.Row="0"  Width="Auto" TabClosing="TabClosingAsync" >
+                          AllowDrop="True" SelectedTabWidth="200" Grid.Row="0"  
+                          Width="Auto" TabClosing="TabClosingAsync"
+                          x:FieldModifier="Public">
             <controls:TabView.Resources>
                 <x:Double x:Key="TabViewItemHeaderMinHeight">32</x:Double>
                 <x:Double x:Key="TabViewItemHeaderMinWidth">90</x:Double>

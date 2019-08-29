@@ -78,6 +78,28 @@
                     <KeyboardAccelerator Modifiers="Control" Key="F"/>
                 </AppBarButton.KeyboardAccelerators>
             </AppBarButton>
+            <AppBarButton x:Name="AppBarJumpToButton" x:Uid="AppBarJumpToButton" Label="转到" AllowFocusOnInteraction="True">
+                <AppBarButton.Flyout>
+                    <Flyout>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock x:Name="AppBarJumpToButtonFlyoutText" x:Uid="AppBarJumpToButtonFlyoutText" Text="转到行："/>
+                            <Grid Margin="0 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="AppBarJumpToButtonFlyoutTextBox" Width="130" Grid.Column="0"/>
+                                <Grid Grid.Column="1"/>
+                                <Button x:Name="AppBarJumpToButtonFlyoutButton" x:Uid="AppBarJumpToButtonFlyoutButton" Content="转到" Grid.Column="2" Width="70" Click="AppBarJumpToButtonFlyoutButtonClicked"/>
+                            </Grid>
+                        </StackPanel>
+                    </Flyout>
+                </AppBarButton.Flyout>
+                <AppBarButton.Icon>
+                    <FontIcon Glyph="&#xE72A;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
             <AppBarButton x:Name="AppBarWebSearchButton" x:Uid="AppBarWebSearchButton" Label="Web 搜索" Click="AppBarWebSearchButtonClicked">
                 <AppBarButton.Icon>
                     <FontIcon Glyph="&#xF6FA;"/>

@@ -144,6 +144,21 @@
   <data name="AppBarHelpButton.Label" xml:space="preserve">
     <value>帮助</value>
   </data>
+  <data name="AppBarJumpToButton.Label" xml:space="preserve">
+    <value>转到</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutButton.Content" xml:space="preserve">
+    <value>转到</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutDialogCloseButtonText" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutDialogContent" xml:space="preserve">
+    <value>输入的行数大于文档总行数</value>
+  </data>
+  <data name="AppBarJumpToButtonFlyoutText.Text" xml:space="preserve">
+    <value>转到行：</value>
+  </data>
   <data name="AppBarNewFileButton.Label" xml:space="preserve">
     <value>新建</value>
   </data>

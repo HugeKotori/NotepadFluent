@@ -21,6 +21,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Core.Preview;
 using Windows.Storage.Pickers;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -259,6 +260,25 @@ namespace NotepadUWP
                 }
             }
         }
+        private void NotepadAppMainWindowPreviewKeyDown(object sender, KeyRoutedEventArgs e)    //Ctrl+Tab swtich tab
+        {
+            var ctrlState = CoreWindow.GetForCurrentThread().GetKeyState(Windows.System.VirtualKey.Control);
+            var isCtrlDown = ctrlState == CoreVirtualKeyStates.Down ||
+                ctrlState == (CoreVirtualKeyStates.Down | CoreVirtualKeyStates.Locked);
+            if (isCtrlDown && e.Key == Windows.System.VirtualKey.Tab)
+            {
+                if (this.TabBar.SelectedIndex == this.TabBar.Items.Count - 1)
+                {
+                    this.TabBar.SelectedIndex = 0;
+                }
+                else
+                {
+                    this.TabBar.SelectedIndex++;
+                }
+                e.Handled = true;
+            }
+        }
+
 
 
 
@@ -454,7 +474,6 @@ namespace NotepadUWP
                 }
             }
         }
-
 
     }
 }
